@@ -13,7 +13,7 @@
           <div class="col-sm">
           </div>
           <div class="col-sm">
-            <form>
+            <form method="POST" novalidate>
               {{ form.csrf_token }}
               <div>
                 <div>
@@ -51,7 +51,23 @@
           </div>
           <div class="col-sm">
             <p class="text-center">
-            <h5 class="text-center">Пример информационного сообщения</h5>
+              {% with messages = get_flashed_messages(category_filter=["short_url"]) %}
+                {% if messages %}
+                <h5 class="text-center">Ваша короткая ссылка готова:</h5>
+                  {% for message in messages %}
+                    <a href="{{ message }}">
+                        {{ message }}
+                    </a>
+                  {% endfor %}
+                {% endif %}
+              {% endwith %}
+              {% with messages = get_flashed_messages(category_filter=["fail"]) %}
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <h5> {{ message }} </h5>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
             </p>
           </div>
           <div class="col-sm">
