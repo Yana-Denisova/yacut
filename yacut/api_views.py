@@ -1,6 +1,8 @@
 from flask import jsonify, request
+
 from . import app, db
 from .models import URL_map
+from .errors import InvalidAPIUsage
 
 
 @app.route('/api/id/', methods=['POST'])  
@@ -15,4 +17,6 @@ def add_url():
 @app.route('/api/id/<string:short_id>/', methods=['GET'])
 def get_url(short_id):
     link = URL_map.query.filter_by(short=short_id).first()
+    if link is None:
+        raise InvalidAPIUsage('Указанный id не найден', 404)
     return jsonify({'url': link.original}), 200
