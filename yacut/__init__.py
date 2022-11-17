@@ -9,5 +9,4 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 
-
-from . import views, forms
+from . import views, forms, api_views

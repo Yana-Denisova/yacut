@@ -8,3 +8,15 @@ class URL_map(db.Model):
     original = db.Column(db.String(256), nullable=False)
     short = db.Column(db.String(16), unique=True, nullable=False)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    
+    def from_dict(self, data):
+        for key in data.keys():
+            if key == 'custom_id':
+                setattr(self, 'short', data[key])
+            setattr(self, 'original', data['url'])
+
+    def to_dict(self):
+        return dict(
+        url = self.original,
+        short_link = self.short,
+    )
