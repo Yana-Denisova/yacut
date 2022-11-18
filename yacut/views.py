@@ -11,6 +11,7 @@ from .models import URL_map
 def get_unique_short_id():
     return ''.join(random.choices(string.ascii_letters + string.digits, k=6))
 
+
 @app.route('/', methods=['GET', 'POST'])
 def index_view():
     form = UrlCutForm()
@@ -19,8 +20,8 @@ def index_view():
         custom_url = form.custom_id.data
         if not custom_url or custom_url == '' or custom_url is None:
             custom_url = get_unique_short_id()
-        if URL_map.query.filter_by(short=form.custom_id.data).first():
-            flash('Такой вариант короткой ссылки уже существует!', 'fail')
+        if URL_map.query.filter_by(short=custom_url).first():
+            flash(f'Имя {custom_url} уже занято!', 'fail')
         else:
             new_url = URL_map(
             original = original_url,
