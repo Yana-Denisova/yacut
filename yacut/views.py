@@ -32,6 +32,7 @@ def index_view():
             flash(url_for('redirect_view', id = custom_url, _external=True), 'short_url')
     return render_template('index.html', form=form)
 
+
 @app.route('/<string:id>')
 def redirect_view(id):
     link = URL_map.query.filter_by(short=id).first()

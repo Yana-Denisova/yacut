@@ -2,6 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, URLField
 from wtforms.validators import DataRequired, Length, Optional, Regexp
 
+
 class UrlCutForm(FlaskForm):
     original_link = URLField(
         'Добавьте ссылку для обработки',
