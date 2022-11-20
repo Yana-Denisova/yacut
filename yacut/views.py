@@ -1,7 +1,7 @@
 import random
 import string
 
-from flask import render_template, flash, redirect, url_for
+from flask import render_template, flash, redirect, url_for, abort
 
 from . import app, db
 from .forms import UrlCutForm
@@ -35,4 +35,6 @@ def index_view():
 @app.route('/<string:id>')
 def redirect_view(id):
     link = URL_map.query.filter_by(short=id).first()
-    return redirect(link.original)
+    if link:
+        return redirect(link.original)
+    abort(404)

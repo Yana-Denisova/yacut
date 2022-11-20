@@ -1,3 +1,5 @@
+import re
+
 from flask import jsonify, request
 
 from . import app, db
@@ -12,10 +14,10 @@ def add_url():
     if data is None:
         raise InvalidAPIUsage('Отсутствует тело запроса', 400)
     elif not data['url']:
-        raise InvalidAPIUsage('\"url\" является обязательным полем!', 400)
-    elif 'custom_id' not in data or data['custom_id'] == '' or data['custom_id'] is None:
+        raise InvalidAPIUsage('"url" является обязательным полем!', 400)
+    elif 'custom_id' not in data or data['custom_id'] == '' or len(data['custom_id']) > 16:
         data.update(custom_id=get_unique_short_id())
-    elif len(data['custom_id']) > 16:
+    elif not re.search(r'[a-zA-Z0-9]+', data['custom_id']):
         raise InvalidAPIUsage('Указано недопустимое имя для короткой ссылки', 400)
     url = URL_map()
     url.from_dict(data)
