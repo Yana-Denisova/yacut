@@ -10,8 +10,8 @@ class UrlCutForm(FlaskForm):
                     Length(1, 256)]
     )
     custom_id = StringField(
-        'Придумайте свой вариант краткой ссылки', 
+        'Придумайте свой вариант краткой ссылки',
         validators=[Length(1, 16), Optional(),
-        Regexp(regex=r'\w+')]
+                    Regexp(regex=r'\w+')]
     )
     submit = SubmitField('Создать')

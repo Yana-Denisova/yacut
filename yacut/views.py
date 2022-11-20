@@ -24,12 +24,12 @@ def index_view():
             flash(f'Имя {custom_url} уже занято!', 'fail')
         else:
             new_url = URL_map(
-            original = original_url,
-            short = custom_url
+                original=original_url,
+                short=custom_url
             )
             db.session.add(new_url)
             db.session.commit()
-            flash(url_for('redirect_view', id = custom_url, _external=True), 'short_url')
+            flash(url_for('redirect_view', id=custom_url, _external=True), 'short_url')
     return render_template('index.html', form=form)
 
 

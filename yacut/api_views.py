@@ -8,7 +8,7 @@ from .errors import InvalidAPIUsage
 from .views import get_unique_short_id
 
 
-@app.route('/api/id/', methods=['POST'])  
+@app.route('/api/id/', methods=['POST'])
 def add_url():
     data = request.get_json()
     if data is None:
@@ -21,8 +21,8 @@ def add_url():
         raise InvalidAPIUsage('Указано недопустимое имя для короткой ссылки')
     elif len(data['custom_id']) > 16:
         raise InvalidAPIUsage('Указано недопустимое имя для короткой ссылки')
-    elif  URL_map.query.filter_by(short=data['custom_id']).first():
-            raise InvalidAPIUsage(f'Имя "{data["custom_id"]}" уже занято.')
+    elif URL_map.query.filter_by(short=data['custom_id']).first():
+        raise InvalidAPIUsage(f'Имя "{data["custom_id"]}" уже занято.')
     url = URL_map()
     url.from_dict(data)
     db.session.add(url)
