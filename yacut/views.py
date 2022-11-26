@@ -35,7 +35,7 @@ def index_view():
 
 @app.route('/<string:id>')
 def redirect_view(id):
-    link = URL_map.query.filter_by(short=id).first()
+    link = URL_map.query.filter_by(short=id).first_or_404()
     if link:
         return redirect(link.original)
     abort(404)
