@@ -1,5 +1,6 @@
 import re
 
+from http import HTTPStatus
 from flask import jsonify, request
 
 from . import app, db
@@ -27,12 +28,12 @@ def add_url():
     url.from_dict(data)
     db.session.add(url)
     db.session.commit()
-    return jsonify(url.to_dict()), 201
+    return jsonify(url.to_dict()), HTTPStatus.CREATED
 
 
 @app.route('/api/id/<string:short_id>/', methods=['GET'])
 def get_url(short_id):
     link = URL_map.query.filter_by(short=short_id).first()
     if link is None:
-        raise InvalidAPIUsage('Указанный id не найден', 404)
-    return jsonify({'url': link.original}), 200
+        raise InvalidAPIUsage('Указанный id не найден', HTTPStatus.NOT_FOUND)
+    return jsonify({'url': link.original}), HTTPStatus.OK
