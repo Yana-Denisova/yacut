@@ -35,7 +35,7 @@ Linux: source venv/bin/activate
 Windows: source venv/Scripts/activate
 ```
 
-И установить зависимости из файла requirements.txt:
+Установить зависимости из файла requirements.txt:
 ```bash
 python3 -m pip install --upgrade pip
 ```
@@ -54,6 +54,8 @@ DATABASE_URI=sqlite:///yacut_db.sqlite3
 SECRET_KEY='Здесь указать секретный ключ'
 Создать базу данных и выполнить миграции:
 ```
+
+Создать базу данных и выполнить миграции:
 ```bash
 flask db upgrade
 ```
@@ -66,6 +68,30 @@ flask run
 web интерфейс будет доступен по адрес [http://localhost:5000/](http://localhost:5000/)
 
 ---
+
+Доступные эндпоинты:
+```
+"/api/id/"
+"/api/id/{short_id}/"
+```
+
+Примеры запросов:
+- Получение полного URL по короткой ссылке:
+```
+Method: GET
+Endpoint: "/api/id/{short_id}/"
+```
+
+- Создание короткой ссылки:
+```
+Method: POST
+Endpoint: "/api/v1/"
+Payload:
+{
+    "url": "string",
+    "custom_id": "string",
+}
+```
 
 ## Автор проекта:
 
